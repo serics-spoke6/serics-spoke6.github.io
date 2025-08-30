@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERICS Summer School - Secure Software Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Banner and Header */
+        .banner {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 3rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                60deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .date-location {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease;
+        }
+
+        .date-location span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            background: white;
+            margin: 2rem auto;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            animation: fadeIn 1s ease;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        /* Schedule Section */
+        .schedule-section {
+            background: white;
+            margin: 2rem auto;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 1200px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #2a5298;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* Schedule Table */
+        .schedule-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        tr:hover td:not(.break-row) {
+            background-color: #f8f9ff;
+        }
+        
+        .course-cell {
+            text-align: left;
+            padding: 0.8rem;
+        }
+        
+        .course-title {
+            font-weight: 600;
+            color: #2a5298;
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .course-speaker {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .time-slot {
+            background: #f5f7fa;
+            font-weight: 600;
+            color: #2a5298;
+        }
+
+        .break-row {
+            background: linear-gradient(90deg, #f0f0f0, #e8e8e8);
+            font-weight: 600;
+            color: #666;
+            font-style: italic;
+        }
+
+        .special-session {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Speaker cells colors */
+        .speaker-1 { background-color: #fff4e6; }
+        .speaker-2 { background-color: #e8f4fd; }
+        .speaker-3 { background-color: #fce4ec; }
+        .speaker-4 { background-color: #f3e5f5; }
+        .speaker-5 { background-color: #e8f5e9; }
+        .speaker-6 { background-color: #fff9c4; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .subtitle { font-size: 1rem; }
+            .intro-section, .schedule-section { padding: 2rem 1.5rem; }
+            th, td { padding: 0.7rem 0.5rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner -->
+    <header class="banner">
+        <div class="container">
+            <div class="header-content">
+                <h1>SERICS Summer School 2025</h1>
+                <p class="subtitle">Secure Software Development: From Design to Implementation</p>
+                <div class="date-location">
+                    <span>📅 September 8-12, 2025</span>
+                    <span>📍 San Servolo Residential and Study Centre - Venice (Italy)</span>
+                    <span>🔒 Security Research</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Introduction -->
+    <section class="intro-section">
+        <h2>About the Summer School</h2>
+        <p class="intro-text">
+            Welcome to the SERICS Summer School on Secure Software Development! This intensive five-day program brings together leading experts in cybersecurity and software engineering to explore cutting-edge techniques in secure software design and implementation.
+        </p>
+        <p class="intro-text">
+            Participants will engage with topics ranging from threat modeling and secure coding practices to vulnerability assessment and security testing. Through lectures, hands-on sessions, and collaborative discussions, attendees will gain practical skills essential for developing robust and secure software systems.
+        </p>
+        <div class="highlight-box">
+            <strong>🎯 Key Focus Areas:</strong> Security by Design • Vulnerability Analysis • Secure Coding Practices • Threat Modeling • Implementation Security • Best Practices in Software Development
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="intro-section">
+        <h2>Location</h2>
+        <p class="intro-text">
+            The Summer School will take place at the beautiful <strong>San Servolo Residential and Study Centre</strong>, located on the island of San Servolo in the Venice lagoon. This historic venue offers a unique setting combining academic excellence with the charm of Venice.
+        </p>
+        <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 2rem;">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2799.7638437051!2d12.310447315547!3d45.41349797910046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477eb1ba0d7c7d5f%3A0x7f3b0e8e5e7f0c3e!2sIsola%20di%20San%20Servolo%2C%20Venezia%2C%20VE%2C%20Italia!5e0!3m2!1sit!2sit!4v1693926178430!5m2!1sit!2sit"
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="schedule-section">
+        <h2>Weekly Program</h2>
+        <div class="schedule-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday (08/09)</th>
+                        <th>Tuesday (09/09)</th>
+                        <th>Wednesday (10/09)</th>
+                        <th>Thursday (11/09)</th>
+                        <th>Friday (12/09)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">9:00 - 10:30</td>
+                        <td class="speaker-1 course-cell">
+                            <div class="course-title">Rule them all: semantically characterizing vulnerabilities and malware</div>
+                            <div class="course-speaker">Gabriele Costa & Silvia De Francisci (IMT Lucca)</div>
+                        </td>
+                        <td class="speaker-2 course-cell">
+                            <div class="course-title">Confidential Computing: Attacks and Defenses</div>
+                            <div class="course-speaker">Frank Piessens (KU Leuven)</div>
+                        </td>
+                        <td class="speaker-3 course-cell">
+                            <div class="course-title">Strands Rocq: Why is a Security Protocol Correct, Mechanically?</div>
+                            <div class="course-speaker">Riccardo Focardi & Matteo Busi</div>
+                        </td>
+                        <td class="speaker-4 course-cell">
+                            <div class="course-title">Foundations of Secure Blockchain Programming</div>
+                            <div class="course-speaker">Matteo Maffei (TU Wien)</div>
+                        </td>
+                        <td class="speaker-5 course-cell">
+                            <div class="course-title">Resource-Aware Programming for Secure Smart Contracts</div>
+                            <div class="course-speaker">Alvise Spanò</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="break-row">☕ Coffee Break</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">11:00 - 12:30</td>
+                        <td class="speaker-5 course-cell">
+                            <div class="course-title">Resource-Aware Programming for Secure Smart Contracts</div>
+                            <div class="course-speaker">Alvise Spanò</div>
+                        </td>
+                        <td class="speaker-6 course-cell">
+                            <div class="course-title">Designing Secure Protocols and Proving Them Correct, with Strand Spaces</div>
+                            <div class="course-speaker">Joshua Guttman (MITRE)</div>
+                        </td>
+                        <td class="speaker-6 course-cell">
+                            <div class="course-title">Designing Secure Protocols and Proving Them Correct, with Strand Spaces</div>
+                            <div class="course-speaker">Joshua Guttman (MITRE)</div>
+                        </td>
+                        <td class="speaker-5 course-cell">
+                            <div class="course-title">Resource-Aware Programming for Secure Smart Contracts</div>
+                            <div class="course-speaker">Alvise Spanò</div>
+                        </td>
+                        <td class="speaker-3 course-cell">
+                            <div class="course-title">Strands Rocq: Why is a Security Protocol Correct, Mechanically?</div>
+                            <div class="course-speaker">Riccardo Focardi & Matteo Busi</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="break-row">🍽️ Lunch</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:30 - 16:00</td>
+                        <td class="speaker-2 course-cell">
+                            <div class="course-title">Confidential Computing: Attacks and Defenses</div>
+                            <div class="course-speaker">Frank Piessens (KU Leuven)</div>
+                        </td>
+                        <td class="speaker-1 course-cell">
+                            <div class="course-title">Rule them all: semantically characterizing vulnerabilities and malware</div>
+                            <div class="course-speaker">Gabriele Costa & Silvia De Francisci (IMT Lucca)</div>
+                        </td>
+                        <td class="special-session">Special Session<br>(Posters?)</td>
+                        <td class="speaker-4 course-cell">
+                            <div class="course-title">Foundations of Secure Blockchain Programming</div>
+                            <div class="course-speaker">Matteo Maffei (TU Wien)</div>
+                        </td>
+                        <td class="speaker-5 course-cell">
+                            <div class="course-title">Resource-Aware Programming for Secure Smart Contracts</div>
+                            <div class="course-speaker">Alvise Spanò</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="break-row">🍵 Tea Break</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:30 - 17:30</td>
+                        <td class="speaker-1 course-cell">
+                            <div class="course-title">Rule them all: semantically characterizing vulnerabilities and malware</div>
+                            <div class="course-speaker">Gabriele Costa & Silvia De Francisci (IMT Lucca)</div>
+                        </td>
+                        <td class="speaker-2 course-cell">
+                            <div class="course-title">Confidential Computing: Attacks and Defenses</div>
+                            <div class="course-speaker">Frank Piessens (KU Leuven)</div>
+                        </td>
+                        <td class="speaker-6 course-cell">
+                            <div class="course-title">Designing Secure Protocols and Proving Them Correct, with Strand Spaces</div>
+                            <div class="course-speaker">Joshua Guttman (MITRE)</div>
+                        </td>
+                        <td class="speaker-3 course-cell">
+                            <div class="course-title">Strands Rocq: Why is a Security Protocol Correct, Mechanically?</div>
+                            <div class="course-speaker">Riccardo Focardi & Matteo Busi</div>
+                        </td>
+                        <td class="speaker-4 course-cell">
+                            <div class="course-title">Foundations of Secure Blockchain Programming</div>
+                            <div class="course-speaker">Matteo Maffei (TU Wien)</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 SERICS Academy | <a href="https://serics.eu/serics-academy/secure-software-development-from-design-to-implementation/" target="_blank">Official Website</a></p>
+            <p>Advancing Security Research and Innovation in Cyberspace</p>
+        </div>
+    </footer>
+</body>
+</html>
