@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SERICS Summer School - Secure Software Development</title>
+    <title>SERICS Summer School - Secure Software Development | Centro Soggiorno San Servolo, Venice</title>
     <style>
         * {
             margin: 0;
@@ -279,6 +279,12 @@
 </head>
 <body>
     <!-- Banner -->
+    <div style="background: #2865af; padding: 0rem 0; border-bottom: 0px solid #2865af;">
+        <div class="container">
+            <img src="PNRR.png" alt="PNRR - SERICS Partnership" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+        </div>
+    </div>
+    
     <header class="banner">
         <div class="container">
             <div class="header-content">
@@ -286,7 +292,7 @@
                 <p class="subtitle">Secure Software Development: From Design to Implementation</p>
                 <div class="date-location">
                     <span>📅 September 8-12, 2025</span>
-                    <span>📍 San Servolo Residential and Study Centre - Venice (Italy)</span>
+                    <span>📍 Centro Soggiorno San Servolo - Venice (Italy)</span>
                     <span>🔒 Security Research</span>
                 </div>
             </div>
@@ -311,19 +317,31 @@
     <section class="intro-section">
         <h2>Location</h2>
         <p class="intro-text">
-            The Summer School will take place at the beautiful <strong>San Servolo Residential and Study Centre</strong>, located on the island of San Servolo in the Venice lagoon. This historic venue offers a unique setting combining academic excellence with the charm of Venice.
+            The Summer School will take place at the beautiful <strong>Centro Soggiorno San Servolo</strong>, located on the island of San Servolo in the Venice lagoon. This historic venue offers a unique setting combining academic excellence with the charm of Venice.
         </p>
-        <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-top: 2rem;">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2800.4856639273466!2d12.353149612077065!3d45.419710370952515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477eafca29eeda65%3A0x593a5573d98bb49d!2sCentro%20Soggiorno%20San%20Servolo!5e0!3m2!1sit!2sit!4v1756540587817!5m2!1sit!2sit"
-                width="100%" 
-                height="400" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+            <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <img src="SanServoloIsland.jpeg" alt="Aerial view of San Servolo Island" style="width: 100%; height: 400px; object-fit: cover;">
+            </div>
+            <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2800.4856639273466!2d12.353149612077065!3d45.419710370952515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477eafca29eeda65%3A0x593a5573d98bb49d!2sCentro%20Soggiorno%20San%20Servolo!5e0!3m2!1sit!2sit!4v1756540587817!5m2!1sit!2sit"
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
+        <style>
+            @media (max-width: 768px) {
+                .intro-section > div > div {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+        </style>
     </section>
 
     <!-- Schedule -->
